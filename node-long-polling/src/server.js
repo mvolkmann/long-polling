@@ -3,10 +3,6 @@ import express from 'express';
 const app = express();
 app.use(express.static('public'));
 
-app.get('/greet', (req, res) => {
-  res.send('Hello World!');
-});
-
 let chiefsHaveBall = true;
 let bills = 0;
 let chiefs = 0;
