@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Long Polling Demo</title>
+    <script defer src="//unpkg.com/alpinejs"></script>
+    <script defer>
+      async function longPoll() {
+        const res = await fetch('/score');
+        const score = await res.text();
+        const scoreP = document.getElementById('score');
+        scoreP.innerText = score;
+
+        // When a score is received, immediately ask for the next update.
+        longPoll();
+      }
+
+      longPoll();
+    </script>
+  </head>
+  <!-- This uses Alpine to simplify the DOM manipulation. -->
+  <body x-data="{name: '', score: ''}">
+    <h1>Long Polling Demo</h1>
+
+    <p id="score"></p>
+
+    <!-- This demonstrates that user interaction is not blocked
+         while waiting for the next score update. -->
+    <label>
+      Name:
+      <input type="text" x-model="name" />
+    </label>
+    <p x-show="name">Hello, <span x-text="name"></span>!</p>
+  </body>
+</html>
